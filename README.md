@@ -22,29 +22,30 @@ How to use
 2. Copy the opauth configuration file located at PKGPATH/opauth/config/opauth.php to your_fuel_app/fuel/app/config/ and tweak as you need. eg.
 
 	```php
-	'Strategy' => array(
-		'Facebook' => array(
-			'app_id' => 'APP_ID',
-			'app_secret' => 'APP_SECRET'
+	<?php	
+		'Strategy' => array(
+			'Facebook' => array(
+				'app_id' => 'APP_ID',
+				'app_secret' => 'APP_SECRET'
+			),
 		),
-	)
 	```
 
 3. Enable fuel-opauth package.
 	
 	```php
-	'always_load' => array(
-		'packages' => array(
-			'opauth',
+	<?php
+		'always_load' => array(
+			'packages' => array(
+				'opauth',
+			),
 		),
-	),
 	```
 
 4. Create a controller called Controller_Auth and actions for strategies that you want your application support. eg.
 
 	```php
 	<?php
-		
 		class Controller_Auth extends Controller
 		{
 			private $_config = null;
