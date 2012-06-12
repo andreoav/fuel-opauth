@@ -70,17 +70,22 @@ How to use
 					break;            
 				}
 				
-				if (array_key_exists('error', $response)){
+				if (array_key_exists('error', $response))
+				{
 					echo '<strong style="color: red;">Authentication error: </strong> Opauth returns error auth response.'."<br>\n";
 				}
-				else{
-					if (empty($response['auth']) || empty($response['timestamp']) || empty($response['signature']) || empty($response['auth']['provider']) || empty($response['auth']['uid'])){
+				else
+				{
+					if (empty($response['auth']) || empty($response['timestamp']) || empty($response['signature']) || empty($response['auth']['provider']) || empty($response['auth']['uid']))
+					{
 						echo '<strong style="color: red;">Invalid auth response: </strong>Missing key auth response components.'."<br>\n";
 					}
-					elseif (!$_opauth->validate(sha1(print_r($response['auth'], true)), $response['timestamp'], $response['signature'], $reason)){
+					elseif (!$_opauth->validate(sha1(print_r($response['auth'], true)), $response['timestamp'], $response['signature'], $reason))
+					{
 						echo '<strong style="color: red;">Invalid auth response: </strong>'.$reason.".<br>\n";
 					}
-					else{
+					else
+					{
 						echo '<strong style="color: green;">OK: </strong>Auth response is validated.'."<br>\n";
 				
 						/**
@@ -89,7 +94,7 @@ How to use
 					}
 				}
 				
-				return new Response(var_dump($response));
+				return Response::forge(var_dump($response));
 			}
 		}
 	```
