@@ -23,88 +23,88 @@ How to use
 
 	```php
 	<?php	
-		'Strategy' => array(
-			'Facebook' => array(
-				'app_id' => 'APP_ID',
-				'app_secret' => 'APP_SECRET'
-			),
+	'Strategy' => array(
+		'Facebook' => array(
+			'app_id' => 'APP_ID',
+			'app_secret' => 'APP_SECRET'
 		),
+	),
 	```
 
 3. Enable fuel-opauth package.
 	
 	```php
 	<?php
-		'always_load' => array(
-			'packages' => array(
-				'opauth',
-			),
+	'always_load' => array(
+		'packages' => array(
+			'opauth',
 		),
+	),
 	```
 
 4. Create a controller called Controller_Auth and actions for strategies that you want your application support. eg.
 
 	```php
 	<?php
-		class Controller_Auth extends Controller
+	class Controller_Auth extends Controller
+	{
+		private $_config = null;
+	
+		public function before()
 		{
-			private $_config = null;
+			if(!isset($this->_config))
+			{
+				$this->_config = Config::load('opauth', 'opauth');
+			}
+		}
 		
-			public function before()
+		/**
+		 * http://www.exemple.org/auth/facebook/
+		 */
+		public function action_facebook()
+		{
+			$_oauth = new Opauth($this->_config, true);
+		}
+		
+		// Print the user credentials after the authentication
+		public function action_callback()
+		{
+			$_oauth = new Opauth($this->_config, false);
+			
+			switch($_opauth->env['callback_transport'])
 			{
-				if(!isset($this->_config))
-				{
-					$this->_config = Config::load('opauth', 'opauth');
-				}
+				case 'session':
+					session_start();
+					$response = $_SESSION['opauth'];
+					unset($_SESSION['opauth']);
+				break;            
 			}
 			
-			/**
-			 * http://www.exemple.org/auth/facebook/
-			 */
-			public function action_facebook()
+			if (array_key_exists('error', $response))
 			{
-				$_oauth = new Opauth($this->_config, true);
+				echo '<strong style="color: red;">Authentication error: </strong> Opauth returns error auth response.'."<br>\n";
 			}
-			
-			// Print the user credentials after the authentication
-			public function action_callback()
+			else
 			{
-				$_oauth = new Opauth($this->_config, false);
-				
-				switch($_opauth->env['callback_transport'])
+				if (empty($response['auth']) || empty($response['timestamp']) || empty($response['signature']) || empty($response['auth']['provider']) || empty($response['auth']['uid']))
 				{
-					case 'session':
-						session_start();
-						$response = $_SESSION['opauth'];
-						unset($_SESSION['opauth']);
-					break;            
+					echo '<strong style="color: red;">Invalid auth response: </strong>Missing key auth response components.'."<br>\n";
 				}
-				
-				if (array_key_exists('error', $response))
+				elseif (!$_opauth->validate(sha1(print_r($response['auth'], true)), $response['timestamp'], $response['signature'], $reason))
 				{
-					echo '<strong style="color: red;">Authentication error: </strong> Opauth returns error auth response.'."<br>\n";
+					echo '<strong style="color: red;">Invalid auth response: </strong>'.$reason.".<br>\n";
 				}
 				else
 				{
-					if (empty($response['auth']) || empty($response['timestamp']) || empty($response['signature']) || empty($response['auth']['provider']) || empty($response['auth']['uid']))
-					{
-						echo '<strong style="color: red;">Invalid auth response: </strong>Missing key auth response components.'."<br>\n";
-					}
-					elseif (!$_opauth->validate(sha1(print_r($response['auth'], true)), $response['timestamp'], $response['signature'], $reason))
-					{
-						echo '<strong style="color: red;">Invalid auth response: </strong>'.$reason.".<br>\n";
-					}
-					else
-					{
-						echo '<strong style="color: green;">OK: </strong>Auth response is validated.'."<br>\n";
-				
-						/**
-						 * It's all good. Go ahead with your application-specific authentication logic
-						 */
-					}
+					echo '<strong style="color: green;">OK: </strong>Auth response is validated.'."<br>\n";
+			
+					/**
+					 * It's all good. Go ahead with your application-specific authentication logic
+					 */
 				}
-				
-				return Response::forge(var_dump($response));
 			}
+			
+			return Response::forge(var_dump($response));
 		}
+	}
 	```
