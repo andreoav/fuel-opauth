@@ -19,7 +19,16 @@ How to use
    git clone git://github.com/andreoav/fuel-opauth.git opauth
    ```
 
-2. Copy the opauth configuration file located at PKGPATH/opauth/config/opauth.php to your_fuel_app/fuel/app/config/ and tweak as you need.
+2. Copy the opauth configuration file located at PKGPATH/opauth/config/opauth.php to your_fuel_app/fuel/app/config/ and tweak as you need. eg.
+
+	```php
+	'Strategy' => array(
+		'Facebook' => array(
+			'app_id' => 'APP_ID',
+			'app_secret' => 'APP_SECRET'
+		),
+	)
+	```
 
 3. Enable fuel-opauth package.
 	
