@@ -19,10 +19,12 @@ How to use
    git clone git://github.com/andreoav/fuel-opauth.git opauth
    ```
 
-2. Copy the opauth configuration file located at PKGPATH/opauth/config/opauth.php to your_fuel_app/fuel/app/config/ and tweak as you need. eg.
+2. Copy the opauth configuration file located at PKGPATH/opauth/config/opauth.php to your_fuel_app/fuel/app/config/, change the security salt and tweak as you need. eg.
 
 	```php
-	<?php	
+	<?php
+	'path' => '/auth/login/',
+	'callback_url' => '/auth/callback/',
 	'Strategy' => array(
 		'Facebook' => array(
 			'app_id' => 'APP_ID',
@@ -42,7 +44,7 @@ How to use
 	),
 	```
 
-4. Create a controller called Controller_Auth and actions for strategies that you want your application support. eg.
+4. Create a controller called Controller_Auth and an action called login. eg.
 
 	```php
 	<?php
@@ -59,14 +61,22 @@ How to use
 		}
 		
 		/**
-		 * http://www.exemple.org/auth/facebook/
+		 * eg. http://www.exemple.org/auth/login/facebook/ will call the facebook opauth strategy.
+		 * Check if $provider is a supported strategy.
 		 */
-		public function action_facebook()
+		public function action_login($_provider = null)
 		{
-			$_oauth = new Opauth($this->_config, true);
+			if(array_key_exists(Inflector::humanize($_provider), Arr::get($this->_config, 'Strategy')))
+			{
+				$_oauth = new Opauth($this->_config, true);
+			}
+			else
+			{
+				return Response::forge('Strategy not supported');
+			}
 		}
 		
-		// Print the user credentials after the authentication
+		// Print the user credentials after the authentication. Use this information as you need. (Log in, registrer, ...)
 		public function action_callback()
 		{
 			$_oauth = new Opauth($this->_config, false);
