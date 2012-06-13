@@ -119,4 +119,56 @@ How to use
 	}
 	```
 
-5. TODO.
+Available strategies
+--------------------
+A strategy is a set of instructions that interfaces with respective authentication providers and relays it back to Opauth.
+This package comes with strategies for Facebook and twitter. To install other strategies copy the files to PKGPATH/opauth/classes/Strategy/ folder.
+
+Provider-specific:
+
+<table>
+<tr>
+	<th>Strategy</th>
+	<th>Maintained by</th>
+</tr>
+<tr>
+	<td><img src="http://g.etfv.co/http://facebook.com" alt="Facebook">&nbsp;&nbsp;
+		<a href="https://github.com/uzyn/opauth-facebook">Facebook</a></td>
+	<td>uzyn</td>
+</tr>
+<tr>
+	<td><img src="http://g.etfv.co/http://google.com" alt="Google">&nbsp;&nbsp;
+		<a href="https://github.com/uzyn/opauth-google">Google</a></td>
+	<td>uzyn</td>
+</tr>
+<tr>
+	<td><img src="http://g.etfv.co/http://instagram.com" alt="Instagram">&nbsp;&nbsp;
+		<a href="https://github.com/muhdazrain/opauth-instagram">Instagram</a></td>
+	<td>muhdazrain</td>
+</tr>
+<tr>
+	<td><img src="http://g.etfv.co/http://linkedin.com" alt="LinkedIn">&nbsp;&nbsp;
+		<a href="https://github.com/uzyn/opauth-linkedin">LinkedIn</a></td>
+	<td>uzyn</td>
+</tr>
+<tr>
+	<td><img src="http://g.etfv.co/http://mixi.co.jp" alt="mixi">&nbsp;&nbsp;
+		<a href="https://github.com/ritou/opauth-mixi">mixi</a></td>
+	<td>ritou</td>
+</tr>
+<tr>
+	<td><img src="http://g.etfv.co/http://openid.net" alt="OpenID">&nbsp;&nbsp;
+		<a href="https://github.com/uzyn/opauth-openid">OpenID</a></td>
+	<td>uzyn</td>
+</tr>
+<tr>
+	<td><img src="http://g.etfv.co/http://twitter.com" alt="Twitter">&nbsp;&nbsp;
+		<a href="https://github.com/uzyn/opauth-twitter">Twitter</a></td>
+	<td>uzyn</td>
+</tr>
+
+</table>
+
+Generic strategy: [OAuth](https://github.com/uzyn/opauth-oauth)
+
+See [wiki's list of strategies](https://github.com/uzyn/opauth/wiki/List-of-strategies) for an updated list of Opauth strategies or to make requests.  Also, refer to [strategy contribution guide](https://github.com/uzyn/opauth/wiki/Strategy-contribution-guide) if you would like to contribute a strategy.
