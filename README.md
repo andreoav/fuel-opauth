@@ -79,7 +79,7 @@ How to use
 		// Print the user credentials after the authentication. Use this information as you need. (Log in, registrer, ...)
 		public function action_callback()
 		{
-			$_oauth = new Opauth($this->_config, false);
+			$_opauth = new Opauth($this->_config, false);
 			
 			switch($_opauth->env['callback_transport'])
 			{
