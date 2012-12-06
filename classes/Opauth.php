@@ -9,6 +9,8 @@
  * @license      MIT License
  */
 
+namespace Opauth;
+
 /**
  * Opauth
  * Multi-provider authentication framework for PHP

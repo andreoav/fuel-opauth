@@ -25,7 +25,7 @@ return array(
      * eg. if Opauth is reached via http://example.org/auth/, path is '/auth/'.
      * if Opauth is reached via http://auth.example.org/, path is '/'.
      */
-    'path' => '/',
+    'path' => '/auth/',
     
     /**
      * Uncoment if you would like to view debug messages.
@@ -34,8 +34,10 @@ return array(
      
      /**
       * Callback URL: redirected to after authentication, successful or otherwise.
+      * 
+      * eg. if Opauth callback is reached via http://example.org/auth/callback, callback_url id '/auth/callback/'
       */
-    'callback_url'  => '{path}callback',
+    'callback_url'  => '/auth/callback/',
     
     /**
      * Callback transport, for sending of $auth response.

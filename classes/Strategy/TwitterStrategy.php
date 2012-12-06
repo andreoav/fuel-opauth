@@ -11,6 +11,8 @@
  * @license      MIT License
  */
 
+namespace Opauth;
+
 class TwitterStrategy extends OpauthStrategy{
 	
 	/**

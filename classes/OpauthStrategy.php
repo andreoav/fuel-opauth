@@ -9,6 +9,8 @@
  * @license      MIT License
  */
 
+namespace Opauth;
+
 /**
  * Opauth Strategy
  * Individual strategies are to be extended from this class
