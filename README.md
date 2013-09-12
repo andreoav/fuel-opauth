@@ -84,9 +84,8 @@ How to use
 			switch($_opauth->env['callback_transport'])
 			{
 				case 'session':
-					session_start();
-					$response = $_SESSION['opauth'];
-					unset($_SESSION['opauth']);
+					$response = \Session::get('opauth');
+					\Session::delete('opauth');
 				break;            
 			}
 			

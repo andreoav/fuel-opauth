@@ -231,9 +231,8 @@ class Opauth {
 		switch($this->env['callback_transport']) {
 			case 'session':
 				if (!session_id()) {
-					session_start();
-					$response = $_SESSION['opauth'];
-					unset($_SESSION['opauth']);
+					$response = \Session::get('opauth');
+					\Session::delete('opauth');
 				}
 				break;
 			case 'post':
