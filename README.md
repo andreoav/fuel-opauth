@@ -1,3 +1,7 @@
+Repository is outdated and is no longer supported.
+--------------------------------------------------
+
+
 FuelPHP package for Opauth
 =========================
 
