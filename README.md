@@ -1,4 +1,4 @@
-Repository is outdated and is no longer supported.
+Repository outdated and is no longer supported.
 --------------------------------------------------
 
 
