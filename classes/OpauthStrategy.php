@@ -177,7 +177,7 @@ class OpauthStrategy {
 				if(!session_id()) {
 					session_start();
 				}
-				$_SESSION['opauth'] = $data;
+				\Session::set('opauth', $data);
 				$this->redirect($this->env['callback_url']);
 		}
 	}
